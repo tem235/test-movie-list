@@ -2,11 +2,16 @@
   <div class="movie-item">
     <div class="movie-item-front">
       <div class="movie-item-poster">
-        <img src="https://via.placeholder.com/315x370" alt="">
+
+        <div class="movie-item-poster__filter-wrap">
+          <img :src="movie.img" alt="">
+        </div>
+
         <button class="movie-item-poster__button movie-item-poster__button--info">
           <img src="@/assets/info.svg" alt="">
         </button>
-        <div class="movie-item-poster-buttons">
+
+        <div v-if="admin" class="movie-item-poster-buttons">
           <button class="movie-item-poster__button">
             <img src="@/assets/pencil.svg" alt="">
           </button>
@@ -14,12 +19,14 @@
             <img src="@/assets/cancel.svg" alt="">
           </button>
         </div>
+
       </div>
+
       <div class="movie-item-content">
-        <h3>Man of Steel</h3>
+        <h3>{{ movie.title }}</h3>
         <div class="movie-item-content-rate">
           <img src="@/assets/star.svg" alt="">
-          <b>4.5 / 5</b>
+          <b>{{ movie.rate }} / 5</b>
         </div>
       </div>
     </div>
@@ -33,6 +40,7 @@
 <script>
 export default {
   name: "MovieItem",
+  props: ['movie', 'admin']
 }
 </script>
 
@@ -55,14 +63,28 @@ export default {
   box-shadow: 0px 10px 25px rgba(0, 0, 0, .08);
 }
 
+.movie-item:hover .movie-item-poster__filter-wrap {
+  filter: grayscale(0);
+}
+
 .movie-item-poster {
   position: relative;
   width: 100%;
   height: 370px;
 }
 
+.movie-item-poster__filter-wrap {
+  width: 100%;
+  height: 370px;
+  filter: grayscale(0.4);
+  transition: 300ms;
+}
+
 .movie-item-poster img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+
 }
 
 
@@ -71,9 +93,7 @@ export default {
   left: 10px;
   top: 10px;
   z-index: 2;
-
 }
-
 
 
 .movie-item-poster__button {
@@ -95,6 +115,7 @@ export default {
   transform: scale(1.2);
 
 }
+
 .movie-item-poster__button--info {
   position: absolute;
   top: 10px;
@@ -112,6 +133,13 @@ export default {
   justify-content: space-between;
   padding: 10px 15px;
 
+}
+
+.movie-item-content h3 {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 80%;
 }
 
 .movie-item-content-rate {

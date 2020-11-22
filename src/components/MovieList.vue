@@ -13,6 +13,7 @@
       />
     </div>
 
+    <button @click="isAdmin = !isAdmin" class="movie-list__switch">Change role</button>
   </div>
 </template>
 
@@ -106,59 +107,89 @@ export default {
           rate: Math.floor(Math.random() * 5) + 1,
         },
       ],
-      isAdmin: false,
+      isAdmin: true,
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+
+
 .movie-list {
 
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #e7e7e7;
+
+  }
+
+  &-container {
+    display: grid;
+    //grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
+    grid-gap: 30px;
+    padding: 50px;
+    align-items: center;
+    justify-items: center;
+  }
+
+  &-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+
+    &__input {
+      height: 100%;
+      border-radius: 10px 0 0 10px;
+      border: 2px solid #fe4141;
+      background: transparent;
+      color: #fff;
+      padding-left: 10px;
+      box-sizing: border-box;
+
+      &:focus {
+        border: 2px solid #fe4151;
+        outline: none;
+      }
+    }
+
+    &__button {
+      height: 100%;
+      width: 100px;
+      border-radius: 0 10px 10px 0;
+      border: 2px solid #fe4141;
+      background: #fe4141;
+      color: #fff;
+      font-size: 20px;
+
+      &:hover {
+        cursor: pointer;
+        background: #a12828;
+      }
+    }
+  }
+
+  &__switch {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #fe4141;
+    color: #fff;
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
+
+    &:hover {
+      cursor: pointer;
+      background: #a12828;
+    }
+
+  }
 }
 
-.movie-list-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 30px;
-  padding: 50px;
-}
-
-.movie-list-search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-
-}
-
-.movie-list-search__input {
-  height: 100%;
-  border-radius: 10px 0 0 10px;
-  border: 2px solid #fe4141;
-  background: transparent;
-  color: #fff;
-  padding-left: 10px;
-  box-sizing: border-box;
-}
-
-.movie-list-search__input:focus {
-  border: 2px solid #fe4151;
-  outline: none;
-}
-
-.movie-list-search__button {
-  height: 100%;
-  width: 100px;
-  border-radius: 0 10px 10px 0;
-  border: 2px solid #fe4141;
-  background: #fe4141;
-  color: #fff;
-  font-size: 20px;
-}
-
-.movie-list-search__button:hover {
-  cursor: pointer;
-  background: #a12828;
-}
 </style>

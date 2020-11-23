@@ -15,7 +15,7 @@
           <button class="movie-item-poster__button">
             <img src="@/assets/pencil.svg" alt="">
           </button>
-          <button class="movie-item-poster__button">
+          <button @click="$emit('remove', movie.id)" class="movie-item-poster__button">
             <img src="@/assets/cancel.svg" alt="">
           </button>
         </div>
@@ -67,7 +67,6 @@ export default {
   height: 450px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .1);
   transition: 300ms;
-  border-radius: 10px;
   color: #e7e7e7;
   overflow: visible;
   transform-style: preserve-3d;
@@ -95,7 +94,7 @@ export default {
   }
 
   &-front {
-
+    border-radius: 10px;
   }
 
   &-back {

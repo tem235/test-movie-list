@@ -36,8 +36,7 @@
         <img src="@/assets/info.svg" alt="">
       </button>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquam architecto dicta, dolore eaque eius
-        error est eum in ipsam odit pariatur porro praesentium quae qui, recusandae, repudiandae temporibus tenetur.</p>
+      <p>{{movie.description}}</p>
     </div>
   </div>
 </template>

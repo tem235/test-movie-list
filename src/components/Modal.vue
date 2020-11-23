@@ -1,6 +1,7 @@
 <template>
   <div class="modal">
     <div class="modal-inner">
+      <button class="modal__close" @click="$emit('close')"><img src="@/assets/cancel.svg" alt=""></button>
       <form v-if="create" class="modal-form">
         <input v-model="movie.title" type="text" placeholder="title create">
         <input v-model="movie.img" type="text" placeholder="image link">
@@ -23,8 +24,8 @@
         <input v-model="editMovie.img" type="text" placeholder="image link">
 
         <textarea v-model="editMovie.description" placeholder="description"></textarea>
-        <select v-model="editMovie.tags">
-          <option disabled value="">Выберите один из вариантов</option>
+        <select v-model="editMovie.tags" multiple>
+          <option disabled value="" >Выберите один из вариантов</option>
           <option>action</option>
           <option>comedy</option>
           <option>drama</option>
@@ -40,7 +41,7 @@
 <script>
 export default {
   name: "Modal",
-  props: ['lastId','editMovie','create'],
+  props: ['lastId', 'editMovie', 'create'],
   data() {
     return {
       movie: {
@@ -53,8 +54,9 @@ export default {
       }
     }
   },
-  methods:{
-    update(){
+  methods: {
+    update() {
+      confirm('Are you sure ?')
       this.$emit('update', this.editMovie)
     }
   }
@@ -76,8 +78,24 @@ export default {
   background: rgba(0, 0, 0, 0.7);
   z-index: 10;
 
+  &__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &-inner {
+    position: relative;
     width: 400px;
+    min-height: 500px;
     height: auto;
     background: #fff;
     padding: 40px;
@@ -87,6 +105,20 @@ export default {
   &-form {
     display: flex;
     flex-direction: column;
+
+    input {
+      margin-bottom: 10px;
+      height: 30px;
+    }
+
+    textarea {
+      margin-bottom: 10px;
+      height: 100px;
+    }
+
+    select {
+      margin-bottom: 10px;
+    }
   }
 }
 </style>

@@ -12,7 +12,7 @@
         </button>
 
         <div v-if="admin" class="movie-item-poster-buttons">
-          <button class="movie-item-poster__button">
+          <button @click="$emit('edit', movie)" class="movie-item-poster__button">
             <img src="@/assets/pencil.svg" alt="">
           </button>
           <button @click="$emit('remove', movie.id)" class="movie-item-poster__button">
@@ -66,6 +66,7 @@ export default {
   min-width: 300px;
   height: 450px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .1);
+  border-radius: 10px;
   transition: 300ms;
   color: #e7e7e7;
   overflow: visible;
@@ -74,7 +75,8 @@ export default {
   font-family: 'Open Sans', sans-serif;
 
   &:hover {
-    box-shadow: 0 10px 25px rgba(168, 59, 59, 0.3);
+    box-shadow: 1px 1px 25px 7px rgba(168, 59, 59, 0.3);
+
 
     .movie-item-poster__filter-wrap {
       filter: grayscale(0);
@@ -95,6 +97,7 @@ export default {
 
   &-front {
     border-radius: 10px;
+    width: 100%;
   }
 
   &-back {
@@ -111,7 +114,7 @@ export default {
     &__filter-wrap {
       width: 100%;
       height: 370px;
-      filter: grayscale(0.4);
+      filter: grayscale(0.5);
       transition: 300ms;
 
       img {

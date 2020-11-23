@@ -1,29 +1,38 @@
 <template>
   <div class="movie-list">
     <h1>Movie List</h1>
-    <div class="movie-list-search">
+    <form class="movie-list-search">
       <input v-model="query" class="movie-list-search__input" type="text">
-      <button @click="search" type="submit" class="movie-list-search__button">Search</button>
-    </div>
+      <button @click.prevent="search" type="submit" class="movie-list-search__button">Search</button>
+    </form>
     <div class="movie-list-container">
       <MovieItem v-for="movie in moviesList"
                  :movie="movie"
                  :key="movie.id"
                  :admin="isAdmin"
                  @remove="removeItem"
+                 @edit="editItem"
       />
     </div>
-    <button v-if="isAdmin" class="movie-list__add">Add movie</button>
+    <button v-if="isAdmin" @click="openModal" class="movie-list__add">Add movie</button>
     <button @click="isAdmin = !isAdmin" class="movie-list__switch">Change role</button>
+    <Modal v-show="showModal"
+           :lastId="lastId"
+           :editMovie="editMovie"
+           :create="create"
+           @create="createItem"
+           @update="updateItem"
+    />
   </div>
 </template>
 
 <script>
 import MovieItem from "@/components/MovieItem";
+import Modal from "@/components/Modal";
 
 export default {
   name: "MovieList",
-  components: {MovieItem},
+  components: {Modal, MovieItem},
   data() {
     return {
       movies: [
@@ -189,21 +198,64 @@ export default {
           tags: [],
           rate: Math.floor(Math.random() * 5) + 1,
         },],
-      isAdmin: true,
+      isAdmin: false,
       query: '',
+      showModal: false,
+      editMovie: {
+        id: '',
+        title: '',
+        img: '',
+        description: '',
+        tags: [],
+        rate: ''
+      },
+      create: true,
     }
   },
-  computed: {},
+  watch: {
+    movies: function () {
+      this.moviesList = this.movies
+    }
+  },
+  computed: {
+    lastId() {
+      let lastItem = this.movies.length
+      return this.movies[lastItem - 1].id
+    }
+  },
   methods: {
+    createItem(movie) {
+      this.create = true
+      this.movies.push(movie)
+      console.log(movie)
+      this.showModal = false
+    },
+
+    editItem(movie) {
+      this.create = false
+      this.editMovie = Object.assign({}, movie)
+      this.showModal = true
+    },
+    updateItem(movie) {
+      let foundIndex = this.movies.findIndex(x => x.id === movie.id);
+      this.movies[foundIndex] = movie;
+      console.log(movie)
+      this.showModal = false
+      this.editMovie = {
+        id: '',
+        title: '',
+        img: '',
+        description: '',
+        tags: [],
+        rate: ''
+      }
+    },
+
     removeItem(id) {
       this.movies = this.movies.filter(movie => {
         return movie.id !== id
       })
-      this.moviesList = this.moviesList.filter(movie => {
-        return movie.id !== id
-      })
     },
-
     search() {
       if (this.query === '') {
         this.moviesList = [...this.movies]
@@ -214,8 +266,9 @@ export default {
           }
         })
       }
-
-
+    },
+    openModal() {
+      this.showModal = !this.showModal;
     }
 
   }

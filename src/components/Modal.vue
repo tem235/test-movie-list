@@ -1,7 +1,9 @@
 <template>
   <div class="modal">
     <div class="modal-inner">
-      <button class="modal__close" @click="$emit('close')"><img src="@/assets/cancel.svg" alt=""></button>
+      <button class="modal__close" @click="close">
+        <img src="@/assets/cancel.svg" alt="">
+      </button>
       <form v-if="create" class="modal-form">
         <input v-model="movie.title" type="text" placeholder="title create">
         <input v-model="movie.img" type="text" placeholder="image link">
@@ -18,14 +20,13 @@
         <button @click.prevent="$emit('create', movie)" type="submit">Submit</button>
       </form>
 
-
       <form v-else class="modal-form">
         <input v-model="editMovie.title" type="text" placeholder="title">
         <input v-model="editMovie.img" type="text" placeholder="image link">
 
         <textarea v-model="editMovie.description" placeholder="description"></textarea>
         <select v-model="editMovie.tags" multiple>
-          <option disabled value="" >Выберите один из вариантов</option>
+          <option disabled value="">Выберите один из вариантов</option>
           <option>action</option>
           <option>comedy</option>
           <option>drama</option>
@@ -57,6 +58,17 @@ export default {
   methods: {
     update() {
       this.$emit('update', this.editMovie)
+    },
+    close() {
+      this.movie = {
+        id: this.lastId + 1,
+        title: '',
+        img: '',
+        description: '',
+        rate: '',
+        tags: [],
+      }
+      this.$emit('close')
     }
   }
 

@@ -1,6 +1,6 @@
 # test-movie-list
 
-![Screenshot](https://github.com/tem235/test-movie-list/blob/main/src/assets/screen.svg)
+![Screenshot](https://raw.githubusercontent.com/tem235/test-movie-list/main/src/assets/screen.png)
 
 ## Задание:
    Написать приложение для организации библиотеки контента (фильмов, книг, игр)

@@ -42,7 +42,8 @@
         <button v-for="tag in movie.tags"
                 :key="tag"
                 @click="$emit('sort', tag)"
-        >{{tag}}</button>
+        >{{ tag }}
+        </button>
       </div>
     </div>
   </div>

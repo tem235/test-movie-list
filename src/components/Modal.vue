@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     update() {
-      confirm('Are you sure ?')
       this.$emit('update', this.editMovie)
     }
   }
@@ -70,7 +69,7 @@ export default {
   display: grid;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -95,7 +94,7 @@ export default {
   &-inner {
     position: relative;
     width: 400px;
-    min-height: 500px;
+    min-height: 300px;
     height: auto;
     background: #fff;
     padding: 40px;

@@ -36,7 +36,14 @@
         <img src="@/assets/info.svg" alt="">
       </button>
 
-      <p>{{movie.description}}</p>
+      <p>{{ movie.description }}</p>
+
+      <div class="">
+        <button v-for="tag in movie.tags"
+                :key="tag"
+                @click="$emit('sort', tag)"
+        >{{tag}}</button>
+      </div>
     </div>
   </div>
 </template>
@@ -80,6 +87,10 @@ export default {
     .movie-item-poster__filter-wrap {
       filter: grayscale(0);
     }
+
+    .movie-item-poster-buttons {
+      display: flex;
+    }
   }
 
   &--flipped {
@@ -101,9 +112,11 @@ export default {
 
   &-back {
     height: 100%;
+    width: 100%;
     padding: 20px;
     transform: rotatey(-180deg);
     border-radius: 10px;
+    text-align: left;
   }
 
   &-poster {
@@ -124,6 +137,7 @@ export default {
     }
 
     &-buttons {
+      display: none;
       position: absolute;
       left: 10px;
       top: 10px;
